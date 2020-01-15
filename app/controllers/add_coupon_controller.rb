@@ -4,6 +4,8 @@ class AddCouponController < ApplicationController
     coupon = Coupon.find_by(code: params[:code])
     if coupon.nil?
       flash[:error] = 'Not A Valid Coupon'
+    elsif current_user.orders.pluck("coupon_id").include?(coupon.id)
+      flash[:error] = 'Coupon Can Not Be Used More Than Once'
     else
       items = Item.where(id: cart.contents.keys)
       use_coupon(coupon, items)
