@@ -21,6 +21,10 @@ class OrdersController <ApplicationController
           price: item.price
           })
       end
+        if current_coupon
+          current_coupon.orders << order
+          session.delete(:current_coupon)
+        end
       session.delete(:cart)
       flash[:success] = "Order created!"
       redirect_to "/profile/orders"
