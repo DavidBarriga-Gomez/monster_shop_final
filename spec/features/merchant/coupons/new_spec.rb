@@ -14,11 +14,19 @@ RSpec.describe 'As A Merchant', type: :feature do
 
   it 'A Coupon can be created' do
     click_on('View Your Coupons')
+    click_on('Create Coupon')
+
+    fill_in :name, with: ''
+    fill_in :code, with: ''
+    fill_in :discount, with: ''
+    click_on('Submit')
+    expect(page).to have_content("Name can't be blank, Code can't be blank, Discount can't be blank, and Discount is not a number")
+
     fill_in :name, with: 'coupon name'
     fill_in :code, with: 'coupon code'
     fill_in :discount, with: 50.0
     click_on('Submit')
-    expect(current_path).to eq("/merchants/#{@merchant_employee.id}/coupons")
+    expect(current_path).to eq("/merchant/coupons")
 
     expect(page).to have_content('coupon name')
     expect(page).to have_content('coupon code')
