@@ -1,0 +1,14 @@
+<h1> Coupons For: <%= current_user.merchant.name %> </h1>
+
+<h3><%= link_to 'Create Coupon', new_merchant_coupon_path %></h3>
+
+<% @coupons.each do |coupon| %>
+  Coupon Name: <%= coupon.name %><br>
+  Coupon Name: <%= link_to coupon.name, "/merchant/coupons/#{coupon.id}", method: :get %><br>
+  Coupon Code: <%= coupon.code %><br>
+  Coupon Discount Percent: <%= coupon.discount %><br>
+  <%= link_to 'Edit', edit_merchant_coupon_path(coupon.id), method: :get %><br>
+  <% if coupon.coupon_used? %>
+    <%= link_to 'Delete', merchant_coupon_path(coupon.id), method: :delete %><br><br>
+  <% end %>
+<% end %>
