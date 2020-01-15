@@ -48,9 +48,11 @@
   <p>Grand Total: <%=number_to_currency(@order.grandtotal)%></p>
   <% if current_user.orders.empty? == false %>
   <%x = number_to_currency(@order.grandtotal)%>
-  <p>Coupon Used: <%= @order.coupon.name %></p>
-  <p>Coupon Percentage Off: <%= @order.coupon.discount %></p>
-  <p>Discounted Total: <%= x.remove('$').to_i * (@order.coupon.discount * 0.01) %></p>
+    <% if @order.coupon == !nil  %>
+      <p>Coupon Used: <%= @order.coupon.name %></p>
+      <p>Coupon Percentage Off: <%= @order.coupon.discount %></p>
+      <p>Discounted Total: <%= x.remove('$').to_i * (@order.coupon.discount * 0.01) %></p>
+    <% end %>
   <% end %>
 </section>
 <section id="datecreated">
