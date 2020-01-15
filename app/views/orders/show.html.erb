@@ -46,6 +46,11 @@
 
 <section id="grandtotal">
   <p>Grand Total: <%=number_to_currency(@order.grandtotal)%></p>
+  <% if current_user.orders.empty? == false %>
+<% x = number_to_currency(@order.grandtotal)%>
+  <% y = number_to_currency(cart.coupon_total(current_coupon.merchant_id, current_coupon.discount)) %>
+  <p>Discounted Total: <%= x.remove('$').to_i - y.remove('$').to_i %></p>
+  <% end %>
 </section>
 <section id="datecreated">
   <p>Item Total:<%= @order.total_items %></p>
