@@ -45,6 +45,9 @@
   <% end %>
 </table>
   <p>Total: <%= number_to_currency(cart.total) %></p>
+  <% if current_coupon %>
+    <p>Discounted Total: <%= number_to_currency(cart.coupon_total(current_coupon.merchant_id, current_coupon.discount)) %></p>
+  <% end %>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
     <% if current_user %>
       <p><%= link_to "Checkout", "/orders/new", method: :get %></p
@@ -53,4 +56,11 @@
   <h3 align= "center">Cart is currently empty</h3>
 <% end %>
 <table>
+  <p>Enter Coupon Code</p>
+  <%= form_tag "/coupon", method: :post do%>
+  <%= label_tag :code %>
+  <%= text_field_tag :code %>
+
+  <%= submit_tag 'Submit' %>
+  <% end %>
 </center>
